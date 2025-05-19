@@ -3,7 +3,7 @@
    backend "s3" {
      bucket         = "my-terraform-state"
      key            = "tfstate/terraform.tfstate"
-     region         = "ap-south-1"
+     region         = "ca-central-1"
      encrypt        = true
      dynamodb_table = "my-terraform-locks"
    }
@@ -15,7 +15,11 @@ resource "aws_s3_bucket" "terraform_state" {
   versioning {
     enabled = true
   }
+    lifecycle {
+    prevent_destroy = true
+  }
 }
+
 
 
 # Create DynamoDB table for state locking
