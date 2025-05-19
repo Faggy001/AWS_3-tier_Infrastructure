@@ -21,8 +21,6 @@ resource "aws_s3_bucket" "terraform_state" {
 }
 
 
-
-# Create DynamoDB table for state locking
 resource "aws_dynamodb_table" "terraform_locks" {
   name         = "my-terraform-locks"
   billing_mode = "PAY_PER_REQUEST"

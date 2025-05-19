@@ -33,7 +33,7 @@ variable "db_username" {
   default     = "GroupB"
 }
 
-variable "environment" {
+variable "Environment" {
   default = "Staging"
   
 }

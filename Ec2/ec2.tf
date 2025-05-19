@@ -1,4 +1,3 @@
-# Private ec2
 resource "aws_instance" "private" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = var.instance_type
@@ -6,10 +5,12 @@ resource "aws_instance" "private" {
   availability_zone      = "${data.aws_region.current.name}a"
   vpc_security_group_ids = [aws_security_group.ssh.id, ]
   key_name               = "tier-key"
-  
+  tags = merge(
+    local.required_tags,
+    tomap({ "Name" = "${local.prefix}-private-ec2" })
+  )
 }
 
-# Public ec2
 resource "aws_instance" "public" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = var.instance_type
@@ -17,6 +18,9 @@ resource "aws_instance" "public" {
   vpc_security_group_ids = [aws_security_group.ssh.id, ]
   key_name               = "tier-key"
   availability_zone      = "${data.aws_region.current.name}a"
-
+  tags = merge(
+    local.required_tags,
+    tomap({ "Name" = "${local.prefix}-public-ec2" })
+  )
  
 }

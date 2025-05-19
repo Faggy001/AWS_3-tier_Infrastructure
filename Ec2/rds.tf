@@ -1,10 +1,8 @@
-// Generate a random password for the RDS instance
 resource "random_password" "rds_password" {
   length  = 16
   special = false
 }
 
-// Store the RDS password in AWS Secrets Manager
 resource "aws_secretsmanager_secret" "rds_password" {
   name = "rds-password"
 }
@@ -14,7 +12,6 @@ resource "aws_secretsmanager_secret_version" "rds_password" {
   secret_string = jsonencode({ password = random_password.rds_password.result })
 }
 
-// Create the RDS PostgreSQL instance
 resource "aws_db_instance" "postgres" {
   identifier              = "${var.db_name}-postgres"
   engine                 = "postgres"
@@ -26,12 +23,17 @@ resource "aws_db_instance" "postgres" {
   vpc_security_group_ids  = [aws_security_group.rds.id]
   db_subnet_group_name    = aws_db_subnet_group.main.name
   skip_final_snapshot     = true
-
+  tags = merge(
+    local.required_tags,
+    tomap({ "Name" = "${local.prefix}-postgres" })
+  )
 }
 
-// Create a DB subnet group for the RDS instance
 resource "aws_db_subnet_group" "main" {
   name       = "db-subnet-group"
   subnet_ids = [aws_subnet.private.id]
-
+  tags = merge(
+    local.required_tags,
+    tomap({ "Name" = "${local.prefix}-db-subnet" })
+  )
 }
