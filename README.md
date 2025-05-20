@@ -91,4 +91,4 @@ aws_route_table_association.*: Associates subnets with the correct route table.
 📡 Network Flow
 Public subnet traffic: 0.0.0.0/0 → Internet Gateway
 
-Private subnet traffic: 0.0.0.0/0 → NAT Gateway → IGW.
+Private subnet traffic: 0.0.0.0/0 → NAT Gateway → IGW. #For testing Environment
