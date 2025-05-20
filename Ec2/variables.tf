@@ -10,7 +10,7 @@ variable "vpc_cidr" {
 
 variable "subnet_cidr_list" {
   type    = list(string)
-  default = ["10.0.1.0/24", "10.0.2.0/24"]
+  default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }
 
 variable "prefix" {
@@ -18,22 +18,26 @@ variable "prefix" {
 }
 
 variable "instance_type" {
-  default = "t2.micro"
+  default = "t3.micro"
 }
 
 variable "db_name" {
   description = "The name of the RDS database"
   type        = string
-  default     = "GroupB-DB"
+  default     = "groupb-db"
 }
 
 variable "db_username" {
   description = "The username for the RDS database"
   type        = string
-  default     = "GroupB"
+  default     = "groupB"
 }
 
 variable "Environment" {
   default = "Staging"
   
+}
+
+variable "ssh_public_key_path" {
+  default = "/home/your-username/.ssh/id_rsa.pub"
 }

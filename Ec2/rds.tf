@@ -4,7 +4,7 @@ resource "random_password" "rds_password" {
 }
 
 resource "aws_secretsmanager_secret" "rds_password" {
-  name = "rds-password"
+  name = "rds-password1"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_password" {
@@ -15,7 +15,7 @@ resource "aws_secretsmanager_secret_version" "rds_password" {
 resource "aws_db_instance" "postgres" {
   identifier              = "${var.db_name}-postgres"
   engine                 = "postgres"
-  engine_version         = "14.10"
+  engine_version         = "11.22"
   instance_class          = "db.t3.micro"
   allocated_storage       = 30
   username                = var.db_username
@@ -31,7 +31,7 @@ resource "aws_db_instance" "postgres" {
 
 resource "aws_db_subnet_group" "main" {
   name       = "db-subnet-group"
-  subnet_ids = [aws_subnet.private.id]
+  subnet_ids = [aws_subnet.private.id, aws_subnet.private1.id]
   tags = merge(
     local.required_tags,
     tomap({ "Name" = "${local.prefix}-db-subnet" })

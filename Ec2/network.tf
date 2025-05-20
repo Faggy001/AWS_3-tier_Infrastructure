@@ -29,6 +29,16 @@ resource "aws_subnet" "private" {
   )
 }
 
+resource "aws_subnet" "private1" {
+  cidr_block        = var.subnet_cidr_list[2]
+  vpc_id            = aws_vpc.main.id
+  availability_zone = "${data.aws_region.current.name}b"
+  tags = merge(
+    local.required_tags,
+    tomap({ "Name" = "${local.prefix}-private" })
+  )
+}
+
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
   tags = merge(

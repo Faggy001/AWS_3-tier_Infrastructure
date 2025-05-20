@@ -11,13 +11,31 @@ resource "aws_network_acl" "public" {
     to_port    = 80
   }
 
-  egress {
+  ingress {
     protocol   = "tcp"
+    rule_no    = 110
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 443
+    to_port    = 443
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 120
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 22
+    to_port    = 22
+  }
+
+  egress {
+    protocol   = "-1"   
     rule_no    = 100
     action     = "allow"
     cidr_block = "0.0.0.0/0"
     from_port  = 0
-    to_port    = 65535
+    to_port    = 0
   }
 }
 
@@ -29,17 +47,17 @@ resource "aws_network_acl" "private" {
     protocol   = "tcp"
     rule_no    = 100
     action     = "allow"
-    cidr_block = "10.0.1.0/24"
+    cidr_block = "10.0.1.0/24"    
     from_port  = 8080
     to_port    = 8080
   }
 
   egress {
-    protocol   = "tcp"
+    protocol   = "-1"   
     rule_no    = 100
     action     = "allow"
     cidr_block = "0.0.0.0/0"
     from_port  = 0
-    to_port    = 65535
+    to_port    = 0
   }
 }

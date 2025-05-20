@@ -1,13 +1,14 @@
-data "aws_ami" "amazon_linux" {
+data "aws_ami" "amazon_linux_2023" {
   most_recent = true
+
   filter {
-
     name   = "name"
-    values = ["amzn2-ami-kernel-5.10-hvm-2.0.*-x86_64-gp2"]
+    values = ["al2023-ami-*-x86_64"]
   }
-  owners = ["amazon"]
 
+  owners = ["amazon"] # Amazon
 }
+
 
 data "aws_region" "current" {
 
