@@ -1,7 +1,9 @@
-# week1
+Week 1
+We'll be launching two EC2 instances: one in a public subnet and the other in a private subnet. The EC2 instance in the public subnet will have a public IP address, allowing it to access the internet—provided the VPC is configured with an internet gateway and an appropriate route is set from the subnet to the gateway.
 
-We will be deploying two ec2 instances. One will be on a public subnet, and the other on a private subnet. EC2 instance in a public subnet will have a public IP to connect to the Internet, given that you have configured an Internet gateway for VPC and created a route from the subnet to the Internet gateway.
+The private EC2 instance, on the other hand, will not have a public IP, keeping it isolated from direct internet access. However, it still needs internet connectivity for tasks like downloading security patches. To enable this, we'll set up a NAT gateway.
 
-The private EC2 instance will not have a public IP, keeping it isolated from anyone on the Internet. Even though we are not allowing it to be reachable from the Internet, we still need a way for EC2 instances to download patches. To do this, we will use the magic of the NAT gateway.
+The NAT gateway will reside in the public subnet and will be associated with an Elastic IP (a static IP address). We'll then update the route table for the private subnet to direct traffic through the NAT gateway. This allows the private EC2 instance to access the internet securely for updates and software installations
 
-We will create a NAT gateway in the public subnet and assign it a static IP(Elastic IP). We will also configure the routes for the private subnet to talk to NAT, enabling the EC2 instance in the private subnet to download the software updates.
+3-tier-Architecture
+![Architecture](Ec2/GroupB-Architecture.png)
