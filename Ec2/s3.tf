@@ -1,5 +1,3 @@
-
- # Create S3 bucket for remote state
 provider "aws" {
   region = var.region 
 }
@@ -11,6 +9,9 @@ resource "aws_s3_bucket" "terraform_state" {
     Name        = "Terraform State Bucket"
     Environment = "Staging"
   }
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_versioning" "versioning" {
@@ -19,22 +20,19 @@ resource "aws_s3_bucket_versioning" "versioning" {
   versioning_configuration {
     status = "Enabled"
   }
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 
-#resource "aws_dynamodb_table" "terraform_locks" {
-#  name         = "my-terraform-locks"
- # billing_mode = "PAY_PER_REQUEST"
-  #attribute {
-   # name = "LockID"
-    #type = "S"
-  #}
-  #hash_key = "LockID"
-   # tags = {
-    #Name        = "Terraform Lock Table"
-    #Environment = "Staging"
-  #}
-#}
+resource "aws_dynamodb_table" "terraform_locks" {
+  name         = "my-terraform-locks"
+  billing_mode = "PAY_PER_REQUEST"
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+  hash_key = "LockID"
+    tags = {
+    Name        = "Terraform Lock Table"
+    Environment = "Staging"
+  }
+}
