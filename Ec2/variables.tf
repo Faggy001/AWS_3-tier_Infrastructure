@@ -39,5 +39,5 @@ variable "Environment" {
 }
 
 variable "ssh_public_key_path" {
-  default = "/home/your-username/.ssh/id_rsa.pub"
+  default = "~/.ssh/id_rsa.pub"
 }
