@@ -35,7 +35,7 @@ Key Arguments:
 vpc_id — The VPC ID where the subnet will be created.
 cidr_block — The CIDR block of the subnet.
 availability_zone — The AWS Availability Zone for the subnet.
-[Subnet](<Ec2/Images/Screenshot 2025-05-21 122618.png>)
+![Subnet](<Ec2/Images/Screenshot 2025-05-21 122618.png>)
 
 📌Resource: aws_internet_gateway
   Purpose: Creates an Internet Gateway to enable internet access for resources inside the VPC.
