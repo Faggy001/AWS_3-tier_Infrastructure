@@ -1,7 +1,7 @@
-✅WEEK 1 MENTORSHIP PROJECTS BY GROUP B TEAM
+✅WEEK 1 MENTORSHIP PROJECT BY GROUP B TEAM
 
 ✅GROUP B TEAM: Fagoroye Sanumi O.
-              Lawal Jonathan
+                 Lawal Jonathan
 
 ✏️TOPIC: Deploy a Secure 3-tier Infrastructure on AWS using Terraform
 
@@ -13,8 +13,9 @@ The NAT gateway will reside in the public subnet and will be associated with an 
 
 3-tier-Architecture
 ![Architecture](Ec2/GroupB-Architecture.png)
+✏️Creating a three–tier architecture on AWS involves setting up three layers: a Web layer, an Application layer, and a Database layer.
 
-✏️EXPLANATION OF EACH TERRAFORM RESOURCE USED:
+EXPLANATION OF EACH TERRAFORM RESOURCE USED:
 ✏️Terraform Resource Documentation
 📌Resource: aws_vpc
   Purpose: Creates a Virtual Private Cloud (VPC) to isolate your network environment in AWS.
@@ -26,7 +27,7 @@ enable_dns_hostnames= Enables DNS hostnames in the VPC.
 
 This VPC forms the basis of your network, allowing you to create subnets, gateways, and control routing.
 
-📌Resource: aws_subnet
+🔹Resource: aws_subnet
   Purpose: Creates a subnet within a VPC to divide the network into smaller segments.
 
 Key Arguments:
@@ -37,7 +38,7 @@ availability_zone — The AWS Availability Zone for the subnet.
 📌Resource: aws_internet_gateway
   Purpose: Creates an Internet Gateway to enable internet access for resources inside the VPC.
 
-📌Resource: aws_route_table
+🔹Resource: aws_route_table
 Purpose: A route table contains a set of rules (routes) that determine how network traffic is directed within your VPC. Each subnet must be associated with one route table, which controls how traffic leaving the subnet is routed.
 
 📌Resource: aws_security_group
@@ -57,22 +58,22 @@ instance_type — The EC2 instance type.
 subnet_id — The subnet where the instance is launched.
 security_groups or vpc_security_group_ids - Security groups attached.
 
-🔹Resource: aws_network_acl
+📌Resource: aws_network_acl
 Purpose: Network ACLs are stateless firewalls that control inbound and outbound traffic at the subnet level in your VPC. Unlike security groups (which are stateful and operate at the instance level), NACLs operate on the subnet and require explicit rules for both inbound and outbound traffic.
 
 🔹Resource: aws_network_acl_association
 Purpose: Associates the NACL with a subnet. NACLs is used for subnet-level traffic filtering, good for an extra layer of security or controlling traffic flow between subnets.
 
-🔹provider
+📌provider
 Purpose: A provider is a plugin that Terraform uses to interact with cloud platforms or services, like AWS, Azure, Google Cloud, or others. It defines the infrastructure API endpoints, authentication, and how Terraform talks to those services.
 
 🔹output
 Purpose:Outputs allow you to extract and display useful information from your Terraform state after running terraform apply. Outputs are helpful to share information between configurations or just to display things like IP addresses, IDs, or DNS names.
 
-🔹 Resource: aws_nat_gateway
+📌Resource: aws_nat_gateway
 The NAT Gateway enables instances in a private subnet to access the internet (e.g., for updates or external APIs), while preventing inbound traffic from the internet.
 
- NAT Gateway + Route Tables = Internet Gateway
+ NAT Gateway + Route Tables + Internet Gateway
 This configuration enables private subnets to access the internet through a NAT Gateway, while public subnets access the internet directly via an Internet Gateway.
 
 🧱 Resources
@@ -92,3 +93,24 @@ aws_route_table_association.*: Associates subnets with the correct route table.
 Public subnet traffic: 0.0.0.0/0 → Internet Gateway
 
 Private subnet traffic: 0.0.0.0/0 → NAT Gateway → IGW. #For testing Environment
+
+📌resource "aws_s3_bucket" "terraform_state"
+This defines an Amazon S3 bucket, which is used to store the Terraform remote state file.
+
+Key Arguments:
+bucket: The name of the S3 bucket.
+versioning.enabled: Enables versioning to preserve, retrieve, and restore every version of every object stored. This is crucial for tracking state file changes over time.
+lifecycle.prevent_destroy: Prevents the accidental deletion of the bucket via Terraform.
+
+Purpose: This bucket securely stores the Terraform state file so multiple users or systems can work with the same infrastructure configuration without conflicts
+
+🔹resource "aws_dynamodb_table" "terraform_locks"
+This defines a DynamoDB table called terraform-locks, used for state locking.
+
+Key Arguments:
+name: The name of the DynamoDB table.
+billing_mode: Using PAY_PER_REQUEST avoids needing to provision read/write capacity.
+hash_key: The primary key for uniquely identifying lock records. LockID is the key used by Terraform to manage locks.
+attribute: Defines the schema for the primary key.
+
+Purpose: This table is used by Terraform to implement state locking, ensuring that only one person or process can modify the state at a time, thus preventing conflicts and corruption.
