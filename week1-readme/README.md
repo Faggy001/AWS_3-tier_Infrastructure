@@ -161,3 +161,4 @@ Not directly accessible from the internet
 Bastion Access Flow
 
 ![Public and Private instance](<Ec2/Images/Screenshot 2025-05-21 135329.png>)
+
