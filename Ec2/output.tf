@@ -34,6 +34,12 @@ output "private_subnet_azs" {
   ]
 }
 
+output "s3-bucket-name" {
+  value = aws_s3_bucket.terraform_state.id
+
+}
+
+
 #output "key_name" {
  # value = aws_key_pair.tier.key_name
 #}

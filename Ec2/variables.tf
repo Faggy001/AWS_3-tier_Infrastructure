@@ -18,7 +18,7 @@ variable "prefix" {
 }
 
 variable "instance_type" {
-  default = "t3.micro"
+  default = "t2.micro"
 }
 
 variable "db_name" {
@@ -38,6 +38,7 @@ variable "Environment" {
   
 }
 
-variable "ssh_public_key_path" {
-  default = "~/.ssh/id_rsa.pub"
-}
+# variable "keyPath" {
+  # type    = string
+  # default = "~/week1/Ec2/tier-key.pem"
+# }

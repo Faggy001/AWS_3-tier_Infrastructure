@@ -4,7 +4,7 @@ resource "random_password" "rds_password" {
 }
 
 resource "aws_secretsmanager_secret" "rds_password" {
-  name = "rds-password1"
+  name = "rds-password05"
 }
 
 resource "aws_secretsmanager_secret_version" "rds_password" {

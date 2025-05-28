@@ -45,7 +45,17 @@ ingress {
     from_port  = 0
     to_port    = 0
   }
+  egress {
+    protocol   = "tcp"
+    rule_no    = 110
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 1024
+    to_port    = 65535
+ }
+
 }
+
 
 resource "aws_network_acl" "private" {
   vpc_id = aws_vpc.main.id
