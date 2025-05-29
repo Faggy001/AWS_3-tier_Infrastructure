@@ -35,15 +35,15 @@ Key Arguments:
 vpc_id — The VPC ID where the subnet will be created.
 cidr_block — The CIDR block of the subnet.
 availability_zone — The AWS Availability Zone for the subnet.
-![Subnet](<week1-readme/Images/Screenshot 2025-05-21 122618.png>)
+![Subnet](<Images/Screenshot 2025-05-21 122618.png>)
 
 📌Resource: aws_internet_gateway
   Purpose: Creates an Internet Gateway to enable internet access for resources inside the VPC.
-![Internet_gateway](<week1-readme/Images/Screenshot 2025-05-21 122714.png>)
+![Internet_gateway](<Images/Screenshot 2025-05-21 122714.png>)
 
 🔹Resource: aws_route_table
 Purpose: A route table contains a set of rules (routes) that determine how network traffic is directed within your VPC. Each subnet must be associated with one route table, which controls how traffic leaving the subnet is routed.
-![route_table](<week1-readme/Images/Screenshot 2025-05-21 122657.png>) 
+![route_table](<Images/Screenshot 2025-05-21 122657.png>) 
 
 📌Resource: aws_security_group
 Purpose: Controls inbound and outbound traffic for your instances (like a virtual firewall).
