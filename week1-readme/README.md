@@ -12,7 +12,7 @@ The private EC2 instance, on the other hand, will not have a public IP, keeping 
 The NAT gateway will reside in the public subnet and will be associated with an Elastic IP (a static IP address). We'll then update the route table for the private subnet to direct traffic through the NAT gateway. This allows the private EC2 instance to access the internet securely for updates and software installations
 
 3-tier-Architecture
-![Architecture](Ec2/GroupB-Architecture.png)
+![Architecture](Images/GroupB-Architecture.png)
 ✏️Creating a three–tier architecture on AWS involves setting up three layers: a Web layer, an Application layer, and a Database layer.
 
 EXPLANATION OF EACH TERRAFORM RESOURCE USED:
@@ -26,7 +26,7 @@ enable_dns_support= Enables DNS support in the VPC.
 enable_dns_hostnames= Enables DNS hostnames in the VPC.
 
 This VPC forms the basis of your network, allowing you to create subnets, gateways, and control routing.
-![VPC](<week1-readme/Images/Screenshot 2025-05-21 122636.png>)
+![VPC](<Images/Screenshot 2025-05-21 122636.png>)
 
 🔹Resource: aws_subnet
   Purpose: Creates a subnet within a VPC to divide the network into smaller segments.
@@ -52,7 +52,7 @@ Key Arguments:
 vpc_id — The VPC ID to which the security group belongs.
 ingress — Rules to allow inbound traffic.
 egress — Rules to allow outbound traffic.
-![Security_group](<week1-readme/Images/Screenshot 2025-05-21 122754.png>)
+![Security_group](<Images/Screenshot 2025-05-21 122754.png>)
 
 🔹Resource: aws_instance
 Purpose: Launches an EC2 instance.
@@ -61,11 +61,11 @@ ami — The Amazon Machine Image ID.
 instance_type — The EC2 instance type.
 subnet_id — The subnet where the instance is launched.
 security_groups or vpc_security_group_ids - Security groups attached.
-![Ec2](<week1-readme/Images/Screenshot 2025-05-21 123012.png>)
+![Ec2](<Images/Screenshot 2025-05-21 123012.png>)
 
 📌Resource: aws_network_acl
 Purpose: Network ACLs are stateless firewalls that control inbound and outbound traffic at the subnet level in your VPC. Unlike security groups (which are stateful and operate at the instance level), NACLs operate on the subnet and require explicit rules for both inbound and outbound traffic.
-![Nacls](<week1-readme/Images/Screenshot 2025-05-21 122835.png>)
+![Nacls](<Images/Screenshot 2025-05-21 122835.png>)
 
 🔹Resource: aws_network_acl_association
 Purpose: Associates the NACL with a subnet. NACLs is used for subnet-level traffic filtering, good for an extra layer of security or controlling traffic flow between subnets.
@@ -78,7 +78,7 @@ Purpose:Outputs allow you to extract and display useful information from your Te
 
 📌Resource: aws_nat_gateway
 The NAT Gateway enables instances in a private subnet to access the internet (e.g., for updates or external APIs), while preventing inbound traffic from the internet.
-![Nat_gateway](<week1-readme/Images/Screenshot 2025-05-21 122736.png>)
+![Nat_gateway](<Images/Screenshot 2025-05-21 122736.png>)
 
  NAT Gateway + Route Tables + Internet Gateway
 This configuration enables private subnets to access the internet through a NAT Gateway, while public subnets access the internet directly via an Internet Gateway.
@@ -110,7 +110,7 @@ versioning.enabled: Enables versioning to preserve, retrieve, and restore every 
 lifecycle.prevent_destroy: Prevents the accidental deletion of the bucket via Terraform.
 
 Purpose: This bucket securely stores the Terraform state file so multiple users or systems can work with the same infrastructure configuration without conflicts
-![S3_bucket](<week1-readme/Images/Screenshot 2025-05-21 131352.png>)
+![S3_bucket](<Images/Screenshot 2025-05-21 131352.png>)
 
 🔹resource "aws_dynamodb_table" "terraform_locks"
 This defines a DynamoDB table called terraform-locks, used for state locking.
@@ -127,7 +127,7 @@ resource "aws_db_instance" "postgres"
 Purpose: RDS acts as the database tier where your application stores and retrieves data.
 It runs in a private subnet to protect sensitive data.
 The application tier communicates securely with RDS to query and manipulate data.
-![Rds](<week1-readme/Images/Screenshot 2025-05-21 131303.png>)
+![Rds](<Images/Screenshot 2025-05-21 131303.png>)
 
 📘 Overview
 In this architecture, a public EC2 instance (bastion host) is used to securely connect to a private EC2 instance within a VPC that does not have direct internet access. The bastion host acts as a jump server for secure administrative access to internal resources
@@ -160,5 +160,5 @@ Not directly accessible from the internet
 
 Bastion Access Flow
 
-![Public and Private instance](<week1-readme/Images/Screenshot 2025-05-21 135329.png>)
+![Public and Private instance](<Images/Screenshot 2025-05-21 135329.png>)
 
