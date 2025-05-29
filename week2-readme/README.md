@@ -18,7 +18,7 @@ This project uses Terraform to provision a secure AWS environment consisting of:
 
 Additionally, the setup demonstrates how to securely enable the private EC2 instance to access S3 without requiring internet connectivity. This is achieved using a VPC Gateway Endpoint for S3, which routes all S3 traffic through the AWS private network, completely bypassing the public internet
 
-![S3](GroupB_s3.drawio.png)
+![S3](Images/GroupB_s3.drawio.png)
 
 EXPLANATION OF THE SECURITY BENEFITS OF USING A VPC ENDPOINT
 
@@ -47,10 +47,10 @@ The time and nature of the request
 
 The specific VPC endpoint used
 
-![Summary](<Screenshot 2025-05-25 223224.png>)
+![Summary](<Images/creenshot 2025-05-25 223224.png>)
 
 ✅Proof that an EC2 instance can access an S3 bucket privately and perform read/write operations using a shell script
 
-![Private access](<Screenshot 2025-05-28 194616.png>)
+![Private access](<Images/Screenshot 2025-05-28 194616.png>)
 
-![Aws](<Screenshot 2025-05-28 192714.png>)
+![Aws](<Images/Screenshot 2025-05-28 192714.png>)
