@@ -26,7 +26,7 @@ enable_dns_support= Enables DNS support in the VPC.
 enable_dns_hostnames= Enables DNS hostnames in the VPC.
 
 This VPC forms the basis of your network, allowing you to create subnets, gateways, and control routing.
-![VPC](<Ec2/Images/Screenshot 2025-05-21 122636.png>)
+![VPC](<week1-readme/Images/Screenshot 2025-05-21 122636.png>)
 
 🔹Resource: aws_subnet
   Purpose: Creates a subnet within a VPC to divide the network into smaller segments.
@@ -35,7 +35,7 @@ Key Arguments:
 vpc_id — The VPC ID where the subnet will be created.
 cidr_block — The CIDR block of the subnet.
 availability_zone — The AWS Availability Zone for the subnet.
-![Subnet](week1-readme/Images/Screenshot 2025-05-21 122618.png)
+![Subnet](<week1-readme/Images/Screenshot 2025-05-21 122618.png>)
 
 📌Resource: aws_internet_gateway
   Purpose: Creates an Internet Gateway to enable internet access for resources inside the VPC.
