@@ -47,7 +47,7 @@ The time and nature of the request
 
 The specific VPC endpoint used
 
-![Summary](<Images/creenshot 2025-05-25 223224.png>)
+![Summary](<Images/Screenshot 2025-05-25 223224.png>)
 
 ✅Proof that an EC2 instance can access an S3 bucket privately and perform read/write operations using a shell script
 
