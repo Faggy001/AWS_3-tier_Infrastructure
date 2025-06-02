@@ -17,12 +17,17 @@ The NAT gateway will reside in the public subnet and will be associated with an 
 
 EXPLANATION OF EACH TERRAFORM RESOURCE USED:
 ✏️Terraform Resource Documentation
+
 📌Resource: aws_vpc
+
   Purpose: Creates a Virtual Private Cloud (VPC) to isolate your network environment in AWS.
 
 Key Arguments:
+
 cidr_block= The IPv4 CIDR block for the VPC.
+
 enable_dns_support= Enables DNS support in the VPC.
+
 enable_dns_hostnames= Enables DNS hostnames in the VPC.
 
 This VPC forms the basis of your network, allowing you to create subnets, gateways, and control routing.
@@ -33,8 +38,11 @@ This VPC forms the basis of your network, allowing you to create subnets, gatewa
 
 Key Arguments:
 vpc_id — The VPC ID where the subnet will be created.
+
 cidr_block — The CIDR block of the subnet.
+
 availability_zone — The AWS Availability Zone for the subnet.
+
 ![Subnet](<Images/Screenshot 2025-05-21 122618.png>)
 
 📌Resource: aws_internet_gateway
@@ -50,16 +58,22 @@ Purpose: Controls inbound and outbound traffic for your instances (like a virtua
 
 Key Arguments:
 vpc_id — The VPC ID to which the security group belongs.
+
 ingress — Rules to allow inbound traffic.
+
 egress — Rules to allow outbound traffic.
 ![Security_group](<Images/Screenshot 2025-05-21 122754.png>)
 
 🔹Resource: aws_instance
 Purpose: Launches an EC2 instance.
 Key Arguments:
+
 ami — The Amazon Machine Image ID.
+
 instance_type — The EC2 instance type.
+
 subnet_id — The subnet where the instance is launched.
+
 security_groups or vpc_security_group_ids - Security groups attached.
 ![Ec2](<Images/Screenshot 2025-05-21 123012.png>)
 
@@ -117,8 +131,11 @@ This defines a DynamoDB table called terraform-locks, used for state locking.
 
 Key Arguments:
 name: The name of the DynamoDB table.
+
 billing_mode: Using PAY_PER_REQUEST avoids needing to provision read/write capacity.
+
 hash_key: The primary key for uniquely identifying lock records. LockID is the key used by Terraform to manage locks.
+
 attribute: Defines the schema for the primary key.
 
 Purpose: This table is used by Terraform to implement state locking, ensuring that only one person or process can modify the state at a time, thus preventing conflicts and corruption.
@@ -135,10 +152,15 @@ In this architecture, a public EC2 instance (bastion host) is used to securely c
 ☁️ Infrastructure Summary
 Component	Description
 VPC- Custom VPC with public and private subnets
+
 Public Subnet-	Hosts the bastion EC2 instance
+
 Private Subnet-	Hosts the internal EC2 instance (no public IP)
+
 NAT Gateway-	Allows private instance outbound internet access
+
 Internet Gateway-	Allows public instance inbound/outbound access
+
 Security Groups-	Control SSH access between instances
 
 🛠️ How It Works
