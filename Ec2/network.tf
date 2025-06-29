@@ -8,12 +8,6 @@ resource "aws_vpc" "main" {
   )
 }
 
-resource "aws_vpc_endpoint" "vpc_gateway_endpoint" {
-  vpc_id              = aws_vpc.main.id
-  service_name        = "com.amazonaws.ca-central-1.s3" 
-  vpc_endpoint_type   = "Gateway"
-  route_table_ids     = [aws_route_table.private.id]
-}
 
 resource "aws_subnet" "public" {
   cidr_block              = var.subnet_cidr_list[0]
@@ -62,14 +56,14 @@ resource "aws_eip" "public" {
 
 }
 
-#resource "aws_nat_gateway" "public" {
-  #allocation_id = aws_eip.public.id
-  #subnet_id     = aws_subnet.public.id
-  #tags = merge(
-   # local.required_tags,
-    #tomap({ "Name" = "${local.prefix}-public-a" })
-  #)
-#}
+resource "aws_nat_gateway" "public" {
+  allocation_id = aws_eip.public.id
+  subnet_id     = aws_subnet.public.id
+  tags = merge(
+    local.required_tags,
+    tomap({ "Name" = "${local.prefix}-public-a" })
+  )
+}
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
@@ -104,11 +98,11 @@ resource "aws_route_table_association" "private1" {
 }
 
 
-#resource "aws_route" "private-internet_out" {
- # route_table_id         = aws_route_table.private.id
-  #nat_gateway_id         = aws_nat_gateway.public.id
-  #destination_cidr_block = "0.0.0.0/0"
-#}
+resource "aws_route" "private-internet_out" {
+  route_table_id         = aws_route_table.private.id
+  nat_gateway_id         = aws_nat_gateway.public.id
+  destination_cidr_block = "0.0.0.0/0"
+}
 
 resource "aws_route" "public_internet_access" {
   route_table_id         = aws_route_table.public.id
